@@ -5,20 +5,7 @@ import (
 	//"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"time"
 )
-
-type BaseModel struct {
-	ID string `gorm:"primary_key"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
-
-type User struct {
-	gorm.Model
-	DoubanId string
-	Nickname string
-}
 
 var DB *gorm.DB
 
@@ -32,9 +19,6 @@ func InitDB() (*gorm.DB, error) {
 	return nil, err
 }
 
-func CreateTableUser(db *gorm.DB) {
-	err := db.CreateTable(&User{})
-	if err != nil {
-		println("create table error.", err)
-	}
+func GetDB() *gorm.DB {
+	return DB
 }

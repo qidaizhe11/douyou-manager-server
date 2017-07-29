@@ -6,7 +6,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"./models"
+	//"./models"
+	//"./controllers"
+	"douyou-manager-server/models"
+	"douyou-manager-server/controllers"
 )
 
 func ping(c *gin.Context) {
@@ -23,9 +26,14 @@ func main() {
 
 	defer db.Close()
 
-	models.CreateTableUser(db)
+	//models.CreateTableUser(db)
 
-	router := gin.New()
+	router := gin.Default()
+
+	userController := controllers.NewUserController(db)
+
+	router.GET("/users/:userId", userController.Get)
+	router.POST("/users", userController.Create)
 
 	router.GET("/ping", ping)
 
