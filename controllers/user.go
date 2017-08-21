@@ -2,11 +2,11 @@ package controllers
 
 import (
 	//"../models"
+	"douyou-manager-server/models"
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-	"net/http"
 	"gopkg.in/mgo.v2/bson"
-	"douyou-manager-server/models"
+	"net/http"
 	"time"
 )
 
@@ -54,8 +54,8 @@ func (ctl UserController) Create(c *gin.Context) {
 	}
 
 	user := models.User{
-		DoubanId: json.DoubanId,
-		Nickname: json.Nickname,
+		DoubanId:      json.DoubanId,
+		Nickname:      json.Nickname,
 		LastLoginTime: time.Now(),
 	}
 

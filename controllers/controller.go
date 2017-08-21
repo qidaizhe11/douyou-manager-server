@@ -15,17 +15,17 @@ type Controller struct {
 
 func (ctl Controller) buildSuccessData(data interface{}) map[string]interface{} {
 	return gin.H{
-		"status": "success",
+		"status":  "success",
 		"success": true,
-		"data": data,
+		"data":    data,
 	}
 }
 
 func (ctl Controller) buildErrorData(message string) map[string]interface{} {
 	return gin.H{
-		"status": "error",
+		"status":  "error",
 		"success": false,
-		"error": message,
+		"error":   message,
 	}
 }
 

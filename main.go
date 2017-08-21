@@ -8,8 +8,8 @@ import (
 
 	//"./models"
 	//"./controllers"
-	"douyou-manager-server/models"
 	"douyou-manager-server/controllers"
+	"douyou-manager-server/models"
 )
 
 func ping(c *gin.Context) {
@@ -31,9 +31,11 @@ func main() {
 	router := gin.Default()
 
 	userController := controllers.NewUserController(db)
+	replyController := controllers.NewReplyController(db)
 
 	router.GET("/users/:userId", userController.Get)
 	router.POST("/users", userController.Create)
+	router.POST("/replies", replyController.Create)
 
 	router.GET("/ping", ping)
 

@@ -15,23 +15,23 @@ type User struct {
 }
 
 type UserResponse struct {
-	Id            string `json:"id"`
-	DoubanId      string `json:"doubanId"`
-	Nickname      string `json:"nickname"`
-	AvatarUrl     string `json:"avatarUrl"`
-	Gender        string `json:"gender"`
-	Location      string `json:"location"`
+	Id            string    `json:"id"`
+	DoubanId      string    `json:"doubanId"`
+	Nickname      string    `json:"nickname"`
+	AvatarUrl     string    `json:"avatarUrl"`
+	Gender        string    `json:"gender"`
+	Location      string    `json:"location"`
 	LastLoginTime time.Time `json:"lastLoginTime"`
 }
 
 func (user *User) ToUserResponse() UserResponse {
 
 	userResponse := UserResponse{
-		Id: user.Id,
-		DoubanId: user.DoubanId,
-		Nickname: user.Nickname,
-		AvatarUrl: user.AvatarUrl,
-		Location: user.Location,
+		Id:            user.Id,
+		DoubanId:      user.DoubanId,
+		Nickname:      user.Nickname,
+		AvatarUrl:     user.AvatarUrl,
+		Location:      user.Location,
 		LastLoginTime: user.LastLoginTime,
 	}
 

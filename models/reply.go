@@ -1,33 +1,33 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type Reply struct {
 	BaseModel
-	Type uint
-	Answer string
+	UserId        string
+	Type          uint // 1：关键词匹配；2：精确匹配
+	Answer        string
 	IsEmptyAnswer uint
-	startTime time.Time
-	endTime time.Time
-	priority uint
+	StartTime     *time.Time
+	EndTime       *time.Time
+	Priority      uint // 优先级，1/2/3/4/5共5级
+	KeywordsCount uint
+	Keywords      []ReplyKeywords
 }
 
-func (reply *Reply) Insert() error {
-	db := GetDB()
-
-	return db.Create(reply).Error
+type ReplyKeywords struct {
+	BaseModel
+	ReplyId string
+	Type    uint // 1：关键词匹配；2：精确匹配
+	Text    string
 }
 
-func (reply *Reply) Update() error {
-	db := GetDB()
-
-	return db.Save(reply).Error
-}
-
-func ListRepliesByUserId(userId string) ([]*Reply, error) {
-	db := GetDB()
-
-	var replies []*Reply
-	err := db.Where("user_id = ?", userId).Find(&replies).Error
-	return replies, err
+type CreateReplyRequest struct {
+	UserId        string   `json:"userId" binding:"required"`
+	Type          string   `json:"type" binding:"required"`
+	Keywords      []string `json:"keywords" binding:"required"`
+	IsEmptyAnswer bool     `json:"isEmptyAnswer"`
+	Answer        string   `json:"answer"`
 }
