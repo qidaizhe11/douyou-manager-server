@@ -23,3 +23,26 @@ type UserResponse struct {
 	Location      string `json:"location"`
 	LastLoginTime time.Time `json:"lastLoginTime"`
 }
+
+func (user *User) ToUserResponse() UserResponse {
+
+	userResponse := UserResponse{
+		Id: user.Id,
+		DoubanId: user.DoubanId,
+		Nickname: user.Nickname,
+		AvatarUrl: user.AvatarUrl,
+		Location: user.Location,
+		LastLoginTime: user.LastLoginTime,
+	}
+
+	switch user.Gender {
+	case 1:
+		userResponse.Gender = "male"
+	case 2:
+		userResponse.Gender = "female"
+	default:
+		userResponse.Gender = ""
+	}
+
+	return userResponse
+}

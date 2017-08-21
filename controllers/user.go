@@ -31,23 +31,7 @@ func (ctl UserController) Get(c *gin.Context) {
 		return
 	}
 
-	userResponse := models.UserResponse{
-		Id: user.Id,
-		DoubanId: user.DoubanId,
-		Nickname: user.Nickname,
-		AvatarUrl: user.AvatarUrl,
-		Location: user.Location,
-		LastLoginTime: user.LastLoginTime,
-	}
-
-	switch user.Gender {
-	case 1:
-		userResponse.Gender = "male"
-	case 2:
-		userResponse.Gender = "female"
-	default:
-		userResponse.Gender = ""
-	}
+	userResponse := user.ToUserResponse()
 
 	ctl.SuccessResponse(c, userResponse)
 }
