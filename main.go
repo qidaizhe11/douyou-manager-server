@@ -24,6 +24,8 @@ func main() {
 		return
 	}
 
+	db.LogMode(true)
+
 	defer db.Close()
 
 	//models.CreateTableUser(db)
@@ -36,6 +38,7 @@ func main() {
 	router.GET("/users/:userId", userController.Get)
 	router.POST("/users", userController.Create)
 	router.POST("/replies", replyController.Create)
+	router.GET("/replies", replyController.GetListByUserId)
 
 	router.GET("/ping", ping)
 

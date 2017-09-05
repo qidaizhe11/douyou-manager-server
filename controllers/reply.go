@@ -19,11 +19,25 @@ func NewReplyController(db *gorm.DB) *ReplyController {
 	return &ReplyController{db: db}
 }
 
-//func (ctl ReplyController) GetListByUserId(c *gin.Context) {
-//	userId := c.Param("userId")
-//
-//	reply := models.Reply{}
-//}
+func (ctl ReplyController) GetListByUserId(c *gin.Context) {
+	userId := c.Query("userId")
+
+	replies := []models.Reply{}
+	err := ctl.db.Where("user_id = ?", userId).Find(&replies).Error
+
+	if err != nil {
+		ctl.ErrorResponse(c, http.StatusInternalServerError, "数据库读写错误")
+		return
+	}
+
+	for i, _ := range replies {
+		ctl.db.Model(replies[i]).Related(&replies[i].Keywords)
+	}
+
+	//gotReplies := replies
+
+	ctl.SuccessResponse(c, replies)
+}
 
 func (ctl ReplyController) Create(c *gin.Context) {
 	var requestJson models.CreateReplyRequest
